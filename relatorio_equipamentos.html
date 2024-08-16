@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Equipamentos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgb(138, 135, 135), white); /* Fundo gradiente cinza-branco */
+            color: #fff; /* Cor da fonte branca */
+        }
+        .logo {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 255px;
+        }
+        .logo-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: auto;
+            opacity: 0.5; /* Ajuste a opacidade conforme necessário */
+            filter: brightness(50%); /* Ajuste o valor de brilho para escurecer */
+            z-index: -1;
+        }
+        .box {
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente para contraste */
+            border: 2px solid rgba(255, 255, 255, 0.823);
+            backdrop-filter: blur(9px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
+            z-index: 10;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2em;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-out; /* Animação do título */
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #fff;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center; /* Centraliza o texto na tabela */
+        }
+        th {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        td {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        th, td {
+            font-size: 14px; /* Ajusta o tamanho da fonte */
+        }
+        /* Adiciona responsividade à tabela */
+        @media (max-width: 768px) {
+            th, td {
+                font-size: 12px; /* Reduz o tamanho da fonte em telas menores */
+                padding: 8px; /* Reduz o padding em telas menores */
+            }
+            .box {
+                width: 100%; /* Ajusta a largura do contêiner em telas menores */
+            }
+        }
+        /* Estilo dos botões de ação */
+        .actions .edit-button, .actions .delete-button {
+            padding: 8px 12px; /* Reduzido para diminuir a altura dos botões */
+            font-size: 12px; /* Reduzido para menor altura */
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            color: #fff; /* Cor da fonte dos botões */
+            transition: background 0.3s ease, transform 0.3s ease; /* Animações de fundo e transformação */
+        }
+        .edit-button {
+            background-color: #006400; /* Cor do botão Editar escurecida */
+        }
+        .edit-button:hover {
+            background-color: #004d00; /* Cor do botão Editar ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .delete-button {
+            background-color: #b22222; /* Cor do botão Deletar escurecida */
+        }
+        .delete-button:hover {
+            background-color: #8b0000; /* Cor do botão Deletar ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        /* Estilo dos botões principais */
+        .button-container {
+            display: flex;
+            flex-wrap: wrap; /* Permite que os botões se movam para a linha seguinte se não houver espaço */
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .export-button, .import-button, .new-button, .return-button {
+            display: inline-block;
+            width: 150px; /* Reduzido para menor largura */
+            padding: 12px; /* Reduzido para menor altura */
+            font-size: 16px; /* Reduzido para menor tamanho de fonte */
+            color: #fff;
+            border: none;
+            border-radius: 40px; /* Reduzido para uma borda mais arredondada */
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s ease, transform 0.3s ease; /* Animações de fundo e transformação */
+        }
+        .export-button {
+            background-color: #0056b3; /* Cor do botão Exportar escurecida */
+        }
+        .export-button:hover {
+            background-color: #003d80; /* Cor do botão Exportar ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .import-button {
+            background-color: #117a8b; /* Cor do botão Importar escurecida */
+        }
+        .import-button:hover {
+            background-color: #0a4d57; /* Cor do botão Importar ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .new-button {
+            background-color: #218838; /* Cor do botão Novo Cadastro escurecida */
+        }
+        .new-button:hover {
+            background-color: #1e7e34; /* Cor do botão Novo Cadastro ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .return-button {
+            background-color: #c82333; /* Cor do botão Retornar escurecida */
+        }
+        .return-button:hover {
+            background-color: #a71d2a; /* Cor do botão Retornar ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        /* Oculta o input de arquivo */
+        #fileInput {
+            display: none;
+        }
+        /* Adiciona um contêiner para os botões de ação */
+        .actions {
+            display: flex;
+            gap: 5px; /* Espaçamento entre os botões */
+            justify-content: center; /* Centraliza os botões horizontalmente */
+        }
+    </style>
+</head>
+<body>
+    <img src="X:/Pedro/Trabalho BRAFT/logo.png" alt="Logotipo" class="logo-background">
+    <div class="box">
+        <h1>Equipamentos Cadastrados</h1>
+        <table id="equipamentoTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
+                    <th>Observação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Os dados dos equipamentos serão adicionados aqui -->
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button class="export-button" onclick="exportToXLSX()">Gerar Excel</button>
+            <button class="import-button" onclick="document.getElementById('fileInput').click()">Importar Excel</button>
+            <button class="new-button" onclick="window.location.href='formulario_equipamento.html'">Novo Cadastro</button>
+            <button class="return-button" onclick="window.location.href='pagina_restrita.html'">Retornar</button>
+            <input type="file" id="fileInput" accept=".xlsx, .xls" onchange="importFromXLSX(event)">
+        </div>
+    </div>
+
+    <!-- Inclua a biblioteca XLSX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const equipamentoTableBody = document.getElementById('equipamentoTable').getElementsByTagName('tbody')[0];
+
+            function loadEquipamentos() {
+                const equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
+                equipamentoTableBody.innerHTML = ''; // Limpa a tabela existente
+                equipamentos.forEach((equipamento, index) => {
+                    const row = equipamentoTableBody.insertRow();
+                    for (const key in equipamento) {
+                        const cell = row.insertCell();
+                        cell.textContent = equipamento[key];
+                    }
+                    const actionCell = row.insertCell();
+                    actionCell.classList.add('actions');
+                    actionCell.innerHTML = `
+                        <button class="edit-button" onclick="editEquipamento(${index})">Editar</button>
+                        <button class="delete-button" onclick="deleteEquipamento(${index})">Deletar</button>
+                    `;
+                });
+            }
+
+            function exportToXLSX() {
+                const equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
+                const ws = XLSX.utils.json_to_sheet(equipamentos);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Equipamentos');
+                XLSX.writeFile(wb, 'equipamentos.xlsx');
+            }
+
+            function importFromXLSX(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[firstSheetName];
+                    const importedEquipamentos = XLSX.utils.sheet_to_json(worksheet);
+
+                    // Atualiza os dados no localStorage
+                    localStorage.setItem('equipamentos', JSON.stringify(importedEquipamentos));
+
+                    loadEquipamentos(); // Recarrega a tabela para exibir os dados importados
+                };
+                reader.readAsArrayBuffer(file);
+            }
+
+            function editEquipamento(index) {
+                localStorage.setItem('editIndex', index);
+                const equipamentoToEdit = JSON.parse(localStorage.getItem('equipamentos'))[index];
+                localStorage.setItem('equipamentoToEdit', JSON.stringify(equipamentoToEdit));
+                window.location.href = 'formulario_equipamento.html';
+            }
+
+            function deleteEquipamento(index) {
+                const equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
+                equipamentos.splice(index, 1);
+                localStorage.setItem('equipamentos', JSON.stringify(equipamentos));
+                loadEquipamentos(); // Recarrega a tabela após a exclusão
+            }
+
+            loadEquipamentos();
+            window.exportToXLSX = exportToXLSX;
+            window.importFromXLSX = importFromXLSX;
+            window.editEquipamento = editEquipamento;
+            window.deleteEquipamento = deleteEquipamento;
+        });
+    </script>
+</body>
+</html>

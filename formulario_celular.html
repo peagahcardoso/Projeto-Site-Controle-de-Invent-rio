@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Celular</title>
+    <style>
+        /* Estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgb(138, 135, 135), white); /* Fundo gradiente cinza-branco */
+            color: #fff;
+        }
+        .logo-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: auto;
+            opacity: 0.5; /* Ajuste a opacidade conforme necessário */
+            filter: brightness(50%); /* Ajuste o valor de brilho para escurecer */
+        }
+        .box {
+            width: 90%;
+            max-width: 1000px; /* Largura ajustada para acomodar as colunas */
+            background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente para contraste */
+            border: 2px solid rgba(255, 255, 255, 0.823);
+            backdrop-filter: blur(9px);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            z-index: 10;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Espaço entre a coluna esquerda e direita */
+            animation: fadeIn 1s ease-in-out; /* Animação de entrada */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #id {
+            background: rgba(255, 255, 255, 0.5); /* Fundo branco semitransparente mais leve para o campo ID */
+            color: #fff; /* Texto branco para contraste */
+        }
+        h1 {
+            text-align: center;
+            color: #fff; /* Cor da fonte branca */
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            display: flex;
+            gap: 20px; /* Espaço entre as colunas */
+            flex: 1; /* Permite que a área do formulário ocupe o espaço disponível */
+        }
+        .column {
+            flex: 1;
+        }
+        .form-group {
+            margin-bottom: 20px; /* Aumentado para maior espaçamento */
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 15px; /* Aumentado para maior campo de entrada */
+            font-size: 16px;
+            color: #000; /* Cor do texto preto */
+            background: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente */
+            border: none;
+            border-radius: 10px;
+            transition: background 0.3s ease, transform 0.3s ease; /* Animações de fundo e transformação */
+        }
+        input::placeholder, select option {
+            color: #000; /* Cor do texto dentro do <select> e placeholder */
+        }
+        input:focus, select:focus, textarea:focus {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.02); /* Efeito de zoom ao focar no campo */
+        }
+        .checkbox-group {
+            margin-bottom: 20px; /* Adiciona espaçamento entre os grupos de checkboxes */
+        }
+        .checkbox-group label {
+            display: block;
+            color: #fff; /* Cor do texto branca */
+            font-size: 16px;
+        }
+        .checkbox-options {
+            display: flex;
+            flex-wrap: wrap; /* Permite que os checkboxes se movam para a próxima linha */
+            gap: 10px; /* Espaçamento entre os checkboxes */
+        }
+        .checkbox-options label {
+            flex: 1 1 calc(50% - 10px); /* Ajusta a largura dos checkboxes para caberem em duas colunas */
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .button-container {
+        display: flex;
+        justify-content: flex-end; /* Alinha os botões ao lado direito */
+        gap: 10px;
+        margin-top: 50px; /* Adiciona espaçamento entre o formulário e os botões */
+        flex: 1 1 80%; /* Permite que os botões se ajustem ao tamanho da coluna */
+}
+        .save-button, .cancel-button {
+            width: 150px;
+            padding: 15px; /* Aumentado para maior botão */
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s ease, transform 0.3s ease; /* Animações de fundo e transformação */
+            background: rgba(255, 255, 255, 0.2); /* Fundo branco semitransparente para efeito similar ao logo */
+            backdrop-filter: blur(5px); /* Adiciona um desfoque leve ao fundo dos botões */
+            border: 2px solid rgba(255, 255, 255, 0.6); /* Borda semi-transparente */
+        }
+        .save-button {
+            background-color: #007bff;
+        }
+        .save-button:hover {
+            background-color: #0056b3; /* Cor do botão ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .cancel-button {
+            background-color: #dc3545;
+        }
+        .cancel-button:hover {
+            background-color: #c82333; /* Cor do botão ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .register-link {
+            font-size: 14.5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .register-link p a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .register-link p a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeInUp {
+        from {
+        opacity: 0;
+        transform: translateY(20px);
+        }
+        to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+        }
+
+        h1 {
+        text-align: center;
+        color: #fff;
+        font-size: 2em;
+        margin-bottom: 20px;
+        animation: fadeInUp 1s ease-out; /* Aplica a animação */
+}
+    </style>
+</head>
+<body>
+    <img src="X:/Pedro/Trabalho BRAFT/logo.png" alt="Logotipo de Fundo" class="logo-background">
+    <div class="box">
+        <h1 id="formTitle">Cadastro de Celulares</h1>
+        <form id="celularForm">
+            <div class="form-container">
+                <!-- Coluna para preenchimento -->
+                <div class="column">
+                    <div class="form-group">
+                        <label for="id">ID Celular</label>
+                        <input type="text" id="id" name="id" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="marca">Marca</label>
+                        <select id="marca" name="marca" required>
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="Acer">Acer</option>
+                            <option value="Apple">Apple</option>
+                            <option value="Asus">Asus</option>
+                            <option value="Avell">Avell</option>
+                            <option value="Dell">Dell</option>
+                            <option value="Lenovo">Lenovo</option>
+                            <option value="LG">LG</option>
+                            <option value="HP">HP</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Vaio">Vaio</option>
+                            <option value="Outro(a)">Outro(a)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="modelo">Modelo</label>
+                        <input type="text" id="modelo" name="modelo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serial">Serial Number</label>
+                        <input type="text" id="serial" name="serial" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="imei1">IMEI1</label>
+                        <input type="text" id="imei1" name="imei1" required>
+                    </div>
+                </div>
+                <!-- Coluna para seleção -->
+                <div class="column">
+                    <div class="form-group">
+                        <label for="observacao">Observação</label>
+                        <textarea id="observacao" name="observacao" rows="6" required></textarea>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Película</label>
+                        <div class="checkbox-options">
+                            <label><input type="radio" name="pelicula" value="Sim" required> Sim</label>
+                            <label><input type="radio" name="pelicula" value="Não"> Não</label>
+                        </div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>LCD</label>
+                        <div class="checkbox-options">
+                            <label><input type="radio" name="lcd" value="Sim" required> Sim</label>
+                            <label><input type="radio" name="lcd" value="Não"> Não</label>
+                        </div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Capa</label>
+                        <div class="checkbox-options">
+                            <label><input type="radio" name="capa" value="Sim" required> Sim</label>
+                            <label><input type="radio" name="capa" value="Não"> Não</label>
+                        </div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Cabo</label>
+                        <div class="checkbox-options">
+                            <label><input type="radio" name="cabo" value="Sim" required> Sim</label>
+                            <label><input type="radio" name="cabo" value="Não"> Não</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="save-button">Salvar</button>
+                <button type="button" class="cancel-button" onclick="window.location.href='relatorio_celulares.html'">Cancelar</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('celularForm');
+            
+            const formTitle = document.getElementById('formTitle');
+            const editIndex = localStorage.getItem('editIndex');
+
+            // Função para gerar um número de cadastro único sequencial
+            function generateId() {
+                const celulares = JSON.parse(localStorage.getItem('celulares')) || [];
+                if (celulares.length === 0) return 1;
+                // Encontrar o maior ID existente e adicionar 1
+                const maxId = Math.max(...celulares.map(e => e.id));
+                return maxId + 1;
+            }
+
+            function populateFuncionarios() {
+                const funcionarios = JSON.parse(localStorage.getItem('employees')) || [];
+                const funcionarioSelect = document.getElementById('funcionario');
+                funcionarios.forEach(funcionario => {
+                    const option = document.createElement('option');
+                    option.value = funcionario.id;
+                    option.textContent = funcionario.name;
+                    funcionarioSelect.appendChild(option);
+                });
+            }
+
+            // Atribui o número de cadastro automaticamente e preenche o formulário se estiver editando
+            if (editIndex !== null) {
+                formTitle.textContent = 'Editar Cadastro';
+                const celulares = JSON.parse(localStorage.getItem('celulares')) || [];
+                const celularToEdit = celulares[editIndex];
+
+                for (const key in celularToEdit) {
+                    if (form.elements[key]) {
+                        form.elements[key].value = celularToEdit[key];
+                    }
+                }
+                form.elements['id'].value = celularToEdit['id']; // Preservar o ID durante a edição
+                localStorage.removeItem('editIndex');
+            } else {
+                form.elements['id'].value = generateId(); // Atribuir um novo ID para um novo cadastro
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const celular = {};
+                formData.forEach((value, key) => celular[key] = value);
+
+                let celulares = JSON.parse(localStorage.getItem('celulares')) || [];
+
+                if (editIndex !== null) {
+                    celulares[editIndex] = celular;
+                } else {
+                    celulares.push(celular);
+                }
+                populateFuncionarios(); // Preenche o campo de funcionários
+
+                localStorage.setItem('celulares', JSON.stringify(celulares));
+                window.location.href = 'relatorio_celulares.html';
+            });
+        });
+    </script>
+</body>
+</html>

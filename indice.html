@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Índice</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+  <style>
+    * * * * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, rgb(138, 135, 135), white);
+  position: relative;
+  color: #fff;
+  overflow: hidden; /* Evita que o overflow da animação apareça */
+}
+.logo-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: auto;
+  opacity: 0.4; /* Ajuste a opacidade conforme necessário */
+  filter: brightness(50%); /* Ajuste o valor de brilho para escurecer */
+  z-index: -1; /* Coloca o logotipo atrás do conteúdo */
+  /* Remover a animação para que o fundo não se mova */
+}
+.wrapper {
+  width: 90%;
+  max-width: 500px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.823);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 40px;
+  position: relative;
+  color: #fff;
+  text-align: center;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeIn 1s forwards; /* Animação de exibição */
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.wrapper h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #fff;
+  animation: slideIn 1s ease-out; /* Animação de entrada para o título */
+}
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.wrapper ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+.wrapper ul li {
+  margin-bottom: 15px;
+}
+.wrapper ul li a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: background 0.3s, transform 0.3s; /* Adiciona transições suaves */
+}
+.wrapper ul li a:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+}
+.wrapper ul li a i {
+  font-size: 1.5rem;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Menu Principal</h1>
+    <ul>
+      <li><a href="relatorio_celulares.html"><i class='bx bx-mobile-alt'></i>Celulares</a></li>
+      <li><a href="relatorio_chips.html"><i class='bx bx-cube'></i>Chips</a></li>
+      <li><a href="relatorio_equipamentos.html"><i class='bx bx-laptop'></i>Equipamentos</a></li>
+      <li><a href="relatorio_notebooks.html"><i class='bx bx-laptop'></i>Notebooks</a></li>
+      <li><a href="relatorio_usuarios.html"><i class='bx bx-mobile-alt'></i>Usuários</a></li>
+    </ul>
+  </div>
+  <img src="X:/Pedro/Trabalho BRAFT/logo.png" alt="Logotipo" class="logo-background">
+</body>
+</html>

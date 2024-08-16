@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+  <style>
+    * * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, rgb(138, 135, 135), white);
+  position: relative;
+  color: #fff;
+  overflow: hidden; /* Adicione para evitar rolagem indesejada */
+}
+.logo-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: auto;
+  opacity: 0.5; /* Ajuste a opacidade conforme necessário */
+  filter: brightness(50%); /* Ajuste o valor de brilho para escurecer */
+  z-index: -1;
+  /* Remova a animação se não for necessária */
+  /* animation: moveBackground 20s linear infinite; */
+}
+@keyframes moveBackground {
+  0% { transform: translate(-50%, -50%) translateX(0); }
+  100% { transform: translate(-50%, -50%) translateX(-50%); } /* Mova o fundo ao longo do eixo X */
+}
+.wrapper {
+  width: 420px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.823);
+  backdrop-filter: blur(9px);
+  border-radius: 12px;
+  padding: 30px 40px;
+  position: relative;
+  color: #fff;
+  z-index: 10;
+  opacity: 0;
+  animation: showContent 1s 1s forwards; /* Animação de exibição mais curta */
+}
+@keyframes showContent {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.wrapper h1 {
+  font-size: 36px;
+  text-align: center;
+  color: #fff;
+}
+.input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 30px 0;
+}
+.input-box input {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  font-size: 16px;
+  color: #fff;
+  padding: 20px 45px 20px 20px;
+}
+.input-box input::placeholder {
+  color: #fff;
+}
+.input-box i {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14.5px;
+  margin: -15px 0 15px;
+}
+.remember-forgot label input {
+  accent-color: #fff;
+  margin-right: 3px;
+}
+.remember-forgot a {
+  color: #fff;
+  text-decoration: none;
+}
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+.btn {
+  width: 100%;
+  height: 45px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+.register-link {
+  font-size: 14.5px;
+  text-align: center;
+  margin: 20px 0 15px;
+}
+.register-link p a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.register-link p a:hover {
+  text-decoration: underline;
+}
+.logo {
+  position: absolute;
+  top: 50%; /* Ajustado para centralizar verticalmente */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; /* Ajuste o tamanho conforme necessário */
+  height: auto;
+  z-index: 5; /* Garante que o logotipo esteja acima do fundo, mas abaixo do formulário */
+  animation: showLogo 1s forwards; /* Animação do logotipo */
+}
+@keyframes showLogo {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+  </style>
+</head>
+<body>
+  <img src="X:/Pedro/Trabalho BRAFT/logo.png" alt="Logotipo de Fundo" class="logo-background">
+  <div class="wrapper">
+    <form id="loginForm" action="login.js" method="POST">
+      <h1>Login</h1>
+      <div class="input-box">
+        <input type="text" placeholder="E-mail" id="email" name="email" required>
+        <i class='bx bxs-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" placeholder="Senha" id="password" name="password" required>
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <div class="remember-forgot">
+        <label><input type="checkbox">Salvar senha</label>
+        <a href="#">Esqueci minha senha</a>
+      </div>
+      <button type="submit" class="btn">Entrar</button>
+      <div class="register-link">
+        <p>Não tem uma conta? <a href="formulario_usuario.html">Entre em contato com o TI</a></p>
+      </div>
+    </form>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('loginForm');
+    
+      form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+    
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        // Adiciona log para verificar se os valores estão sendo capturados
+        console.log('E-mail:', email);
+        console.log('Senha:', password);
+        
+        // Obtém os usuários armazenados
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        console.log('Usuários armazenados:', users); // Adiciona log para verificar usuários
+    
+        // Verifica se o usuário existe
+        const user = users.find(user => user.email === email && user.senha === password);
+    
+        // Adiciona log para verificar se o usuário foi encontrado
+        console.log('Usuário encontrado:', user);
+    
+        if (user) {
+          // Usuário autenticado com sucesso
+          alert('Login bem-sucedido!');
+          window.location.href = 'pagina_restrita.html'; // Redireciona para a página restrita
+        } else {
+          // Usuário não encontrado
+          alert('E-mail ou senha incorretos.');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

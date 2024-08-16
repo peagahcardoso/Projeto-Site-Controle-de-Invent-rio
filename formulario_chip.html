@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Chip</title>
+    <style>
+        #id {
+            background: rgba(255, 255, 255, 0.5); /* Fundo branco semitransparente mais leve para o campo ID */
+            color: #fff; /* Texto branco para contraste */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgb(138, 135, 135), white); /* Fundo gradiente cinza-branco */
+            color: #fff;
+        }
+        .logo {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 255px;
+        }
+        .logo-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: auto;
+            opacity: 0.5; /* Ajuste a opacidade conforme necessário */
+            filter: brightness(50%); /* Ajuste o valor de brilho para escurecer */
+        }
+        .box {
+            width: 90%;
+            max-width: 600px; /* Largura ajustada */
+            background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente para contraste */
+            border: 2px solid rgba(255, 255, 255, 0.823);
+            backdrop-filter: blur(9px);
+            border-radius: 12px;
+            padding: 30px 40px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            z-index: 10;
+            position: relative;
+            animation: fadeIn 1s ease-in-out; /* Animação de entrada */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        h1 {
+            text-align: center;
+            color: #fff; /* Cor da fonte branca */
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px; /* Aumentado para maior espaçamento */
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        input, select {
+            width: 100%;
+            padding: 15px; /* Aumentado para maior campo de entrada */
+            font-size: 16px;
+            color: #000; /* Cor do texto preto */
+            background: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente */
+            border: none;
+            border-radius: 10px;
+            transition: background 0.3s ease, transform 0.3s ease; /* Animações de fundo e transformação */
+        }
+        input::placeholder, select option {
+            color: #000; /* Cor do texto dentro do <select> e placeholder */
+        }
+        input:focus, select:focus {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.02); /* Efeito de zoom ao focar no campo */
+        }
+        .save-button, .cancel-button {
+            width: 150px;
+            padding: 15px; /* Aumentado para maior botão */
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s ease, transform 0.3s ease; /* Animações de fundo e transformação */
+            background: rgba(255, 255, 255, 0.2); /* Fundo branco semitransparente para efeito similar ao logo */
+            backdrop-filter: blur(5px); /* Adiciona um desfoque leve ao fundo dos botões */
+            border: 2px solid rgba(255, 255, 255, 0.6); /* Borda semi-transparente */
+        }
+        .save-button {
+            background-color: #007bff;
+        }
+        .save-button:hover {
+            background-color: #0056b3; /* Cor do botão ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .cancel-button {
+            background-color: #dc3545;
+        }
+        .cancel-button:hover {
+            background-color: #c82333; /* Cor do botão ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .button-container {
+        display: flex;
+        justify-content: center; /* Alinha os botões ao centro horizontalmente */
+        gap: 20px; /* Adiciona espaçamento entre os botões */
+        margin-top: 30px; /* Adiciona mais espaço acima dos botões */
+        }
+        .register-link {
+            font-size: 14.5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .register-link p a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .register-link p a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeInUp {
+        from {
+        opacity: 0;
+        transform: translateY(20px);
+        }
+        to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+        }
+
+        h1 {
+        text-align: center;
+        color: #fff;
+        font-size: 2em;
+        margin-bottom: 20px;
+        animation: fadeInUp 1s ease-out; /* Aplica a animação */
+}
+    </style> 
+</head>
+<body>
+    <img src="X:/Pedro/Trabalho BRAFT/logo.png" alt="Logotipo de Fundo" class="logo-background">
+    <div class="box">
+        <h1 id="formTitle">Cadastro de Chips</h1>
+        <form id="chipForm">
+            <!-- Campo Número de Cadastro visível mas não editável -->
+            <div class="form-group">
+                <label for="id">ID Chip</label>
+                <input type="text" id="id" name="id" readonly>
+            </div>
+            <div class="form-group">
+                <label for="operadora">Operadora</label>
+                <select id="operadora" name="operadora" required>
+                    <option value="" disabled selected>Selecione...</option>
+                    <option value="Claro">Claro</option>
+                    <option value="Vianet">Vianet</option>
+                    <option value="Vivo">Vivo</option>
+                    <option value="Vodafone">Vodafone</option>
+                    <option value="Tim">TIM</option>
+                    <option value="Outro">Outro(a)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="numero">Número</label>
+                <input type="text" id="numero" name="numero" required>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="save-button">Salvar</button>
+                <button type="button" class="cancel-button" onclick="window.location.href='relatorio_chips.html'">Cancelar</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('chipForm');
+            const formTitle = document.getElementById('formTitle');
+            const editIndex = localStorage.getItem('editIndex');
+
+            // Função para gerar um número de cadastro único sequencial
+            function generateId() {
+                const chips = JSON.parse(localStorage.getItem('chips')) || [];
+                if (chips.length === 0) return 1;
+                // Encontrar o maior ID existente e adicionar 1
+                const maxId = Math.max(...chips.map(e => e.id));
+                return maxId + 1;
+            }
+
+            // Atribui o número de cadastro automaticamente e preenche o formulário se estiver editando
+            if (editIndex !== null) {
+                formTitle.textContent = 'Editar Cadastro';
+                const chips = JSON.parse(localStorage.getItem('chips')) || [];
+                const chipToEdit = chips[editIndex];
+
+                for (const key in chipToEdit) {
+                    if (form.elements[key]) {
+                        form.elements[key].value = chipToEdit[key];
+                    }
+                }
+                form.elements['id'].value = chipToEdit['id']; // Preservar o ID durante a edição
+                localStorage.removeItem('editIndex');
+            } else {
+                form.elements['id'].value = generateId(); // Atribuir um novo ID para um novo cadastro
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const chip = {};
+                formData.forEach((value, key) => chip[key] = value);
+
+                let chips = JSON.parse(localStorage.getItem('chips')) || [];
+
+                if (editIndex !== null) {
+                    chips[editIndex] = chip;
+                } else {
+                    chips.push(chip);
+                }
+
+                localStorage.setItem('chips', JSON.stringify(chips));
+                window.location.href = 'relatorio_chips.html';
+            });
+        });
+    </script>
+</body>
+</html>

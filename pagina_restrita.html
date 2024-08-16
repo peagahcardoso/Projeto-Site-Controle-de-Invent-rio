@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Restrita</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgb(138, 135, 135), white);
+            position: relative;
+            color: #fff;
+            overflow: hidden; /* Evita que o overflow da animação apareça */
+        }
+        .logo-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: auto;
+            opacity: 0.4; /* Ajuste a opacidade conforme necessário */
+            filter: brightness(50%); /* Ajuste o valor de brilho para escurecer */
+            z-index: -1; /* Coloca o logotipo atrás do conteúdo */
+        }
+        .wrapper {
+            width: 90%;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.823);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px;
+            position: relative;
+            color: #fff;
+            text-align: center;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 70vh;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .wrapper h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+            animation: fadeIn 1s ease-out; /* Animação de entrada para o título */
+        }
+        .wrapper ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            margin-bottom: auto; /* Empurra o botão para baixo */
+        }
+        .wrapper ul li {
+            margin-bottom: 15px;
+        }
+        .wrapper ul li a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: background 0.3s, transform 0.3s; /* Adiciona transições suaves */
+        }
+        .wrapper ul li a:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .wrapper ul li a i {
+            font-size: 1.5rem;
+        }
+        .logout-button {
+            background: #ff4d4d; /* Cor de fundo do botão */
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            margin-top: 20px;
+        }
+        .logout-button:hover {
+            background: #ff1a1a; /* Cor de fundo ao passar o mouse */
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Bem-vindo(a)</h1>
+        <h2>Índice</h2>
+        <ul>
+            <li><a href="relatorio_celulares.html"><i class='bx bx-mobile-alt'></i>Celulares</a></li>
+            <li><a href="relatorio_chips.html"><i class='bx bx-cube'></i>Chips</a></li>
+            <li><a href="relatorio_equipamentos.html"><i class='bx bx-laptop'></i>Equipamentos</a></li>
+            <li><a href="relatorio_notebooks.html"><i class='bx bx-laptop'></i>Notebooks</a></li>
+            <li><a href="relatorio_usuarios.html"><i class='bx bx-mobile-alt'></i>Usuários</a></li>
+        </ul>
+        <button class="logout-button" onclick="confirmLogout()">Sair</button>
+    </div>
+    <img src="X:/Pedro/Trabalho BRAFT/logo.png" alt="Logotipo" class="logo-background">
+
+    <script>
+        function confirmLogout() {
+            // Exibe uma caixa de diálogo de confirmação
+            const confirmation = confirm("Você realmente deseja sair?");
+            
+            // Se o usuário confirmar, redireciona para a página de logout
+            if (confirmation) {
+                window.location.href = 'logout.html';
+            }
+        }
+    </script>
+</body>
+</html>

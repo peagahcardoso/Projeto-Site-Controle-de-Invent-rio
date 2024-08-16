@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notebooks Cadastrados</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgb(138, 135, 135), white); /* Fundo gradiente cinza-branco */
+            color: #fff; /* Cor da fonte branca */
+        }
+        .logo {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 255px;
+        }
+        .logo-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: auto;
+            opacity: 0.5; /* Ajuste a opacidade conforme necessário */
+            filter: brightness(50%); /* Ajuste o valor de brilho para escurecer */
+            z-index: -1;
+        }
+        .box {
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente para contraste */
+            border: 2px solid rgba(255, 255, 255, 0.823);
+            backdrop-filter: blur(9px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
+            z-index: 10;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #fff;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center; /* Centraliza o texto na tabela */
+        }
+        th {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        td {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        th, td {
+            font-size: 14px; /* Ajusta o tamanho da fonte */
+        }
+        /* Adiciona responsividade à tabela */
+        @media (max-width: 768px) {
+            th, td {
+                font-size: 12px; /* Reduz o tamanho da fonte em telas menores */
+                padding: 8px; /* Reduz o padding em telas menores */
+            }
+            .box {
+                width: 100%; /* Ajusta a largura do contêiner em telas menores */
+            }
+        }
+        /* Estilo dos botões */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .export-button, .import-button, .new-button, .return-button {
+            display: inline-block;
+            width: 150px;
+            padding: 15px; /* Aumentado para maior botão */
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s ease, transform 0.3s ease; /* Animações de fundo e transformação */
+        }
+        .export-button {
+            background-color: #007bff;
+        }
+        .export-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .import-button {
+            background-color: #17a2b8;
+        }
+        .import-button:hover {
+            background-color: #117a8b;
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .new-button {
+            background-color: #28a745;
+        }
+        .new-button:hover {
+            background-color: #218838;
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .return-button {
+            background-color: #dc3545;
+        }
+        .return-button:hover {
+            background-color: #c82333;
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        /* Estilo dos botões de ação */
+        .action-buttons {
+            display: flex;
+            justify-content: center; /* Centraliza os botões de ação */
+            gap: 5px; /* Espaço entre os botões de ação */
+        }
+        .edit-button, .delete-button {
+            padding: 5px 10px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease; /* Animações de fundo e transformação */
+        }
+        .edit-button {
+            background-color: #28a745;
+        }
+        .edit-button:hover {
+            background-color: #218838;
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        .delete-button {
+            background-color: #dc3545;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+            transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+        }
+        /* Oculta o input de arquivo */
+        #fileInput {
+            display: none;
+        }
+        @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+        }
+
+        h1 {
+        text-align: center;
+        color: #fff;
+        font-size: 2em;
+        margin-bottom: 20px;
+        animation: fadeInUp 1s ease-out; /* Aplica a animação */
+}
+    </style>
+</head>
+<body>
+    <img src="X:/Pedro/Trabalho BRAFT/logo.png" alt="Logotipo" class="logo-background">
+    <div class="box">
+        <h1>Notebooks Cadastrados</h1>
+        <table id="notebookTable">
+            <thead>
+                <tr>
+                    <th>ID Notebook</th>
+                    <th>Modelo</th>
+                    <th>Serial Number</th>
+                    <th>Marca</th>
+                    <th>Memória Interna</th>
+                    <th>Memória RAM</th>
+                    <th>Processador</th>
+                    <th>Versão do Windows</th>
+                    <th>Observação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Os dados dos notebooks serão adicionados aqui -->
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button class="export-button" onclick="exportToXLSX()">Gerar Excel</button>
+            <button class="import-button" onclick="document.getElementById('fileInput').click()">Importar Excel</button>
+            <button class="new-button" onclick="window.location.href='formulario_notebook.html'">Novo Cadastro</button>
+            <button class="return-button" onclick="window.location.href='pagina_restrita.html'">Retornar</button>
+            <input type="file" id="fileInput" accept=".xlsx, .xls" onchange="importFromXLSX(event)">
+        </div>
+    </div>
+
+    <!-- Inclua a biblioteca XLSX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const notebookTableBody = document.getElementById('notebookTable').getElementsByTagName('tbody')[0];
+            let notebooks = JSON.parse(localStorage.getItem('notebooks')) || [];
+
+            function loadNotebooks() {
+                notebookTableBody.innerHTML = ''; // Limpa a tabela existente
+                notebooks.forEach((notebook, index) => {
+                    const row = notebookTableBody.insertRow();
+                    for (const key in notebook) {
+                        const cell = row.insertCell();
+                        cell.textContent = notebook[key];
+                    }
+                    const actionCell = row.insertCell();
+                    actionCell.innerHTML = `
+                        <div class="action-buttons">
+                            <button class="edit-button" onclick="editNotebook(${index})">Editar</button>
+                            <button class="delete-button" onclick="deleteNotebook(${index})">Deletar</button>
+                        </div>
+                    `;
+                });
+            }
+
+            loadNotebooks();
+
+            window.editNotebook = function(index) {
+                const notebook = notebooks[index];
+                localStorage.setItem('notebookToEdit', JSON.stringify(notebook));
+                localStorage.setItem('editIndex', index);
+                window.location.href = 'formulario_notebook.html';
+            };
+
+            window.deleteNotebook = function(index) {
+                notebooks.splice(index, 1);
+                localStorage.setItem('notebooks', JSON.stringify(notebooks));
+                loadNotebooks();
+            };
+        });
+
+        function exportToXLSX() {
+            const notebooks = JSON.parse(localStorage.getItem('notebooks')) || [];
+            const ws = XLSX.utils.json_to_sheet(notebooks);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Notebooks');
+            XLSX.writeFile(wb, 'notebooks.xlsx');
+        }
+
+        function importFromXLSX(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const notebooks = XLSX.utils.sheet_to_json(worksheet);
+
+                // Armazena os dados no localStorage
+                localStorage.setItem('notebooks', JSON.stringify(notebooks));
+
+                // Atualiza a tabela com os novos dados
+                const notebookTableBody = document.getElementById('notebookTable').getElementsByTagName('tbody')[0];
+                notebookTableBody.innerHTML = '';
+                notebooks.forEach((notebook, index) => {
+                    const row = notebookTableBody.insertRow();
+                    for (const key in notebook) {
+                        const cell = row.insertCell();
+                        cell.textContent = notebook[key];
+                    }
+                    const actionCell = row.insertCell();
+                    actionCell.innerHTML = `
+                        <div class="action-buttons">
+                            <button class="edit-button" onclick="editNotebook(${index})">Editar</button>
+                            <button class="delete-button" onclick="deleteNotebook(${index})">Deletar</button>
+                        </div>
+                    `;
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+</html>

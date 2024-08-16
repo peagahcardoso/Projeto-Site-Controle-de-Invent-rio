@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Remove o usuário do localStorage ou realiza outras ações de logout
+            localStorage.removeItem('loggedInUser');
+            window.location.href = 'login.html'; // Redireciona para a página de login
+        });
+    </script>
+</head>
+<body>
+    <h1>Saindo...</h1>
+</body>
+</html>

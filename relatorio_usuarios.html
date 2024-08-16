@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários Cadastrados</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgb(138, 135, 135), white);
+            color: #fff;
+        }
+        .logo {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 255px;
+        }
+        .logo-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: auto;
+            opacity: 0.5; /* Ajuste a opacidade conforme necessário */
+            filter: brightness(50%); /* Ajuste o valor de brilho para escurecer */
+            z-index: -1;
+        }
+        .box {
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.823);
+            backdrop-filter: blur(9px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            overflow-x: auto;
+            z-index: 10;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #fff;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        td {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        th, td {
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            th, td {
+                font-size: 12px;
+                padding: 8px;
+            }
+            .box {
+                width: 100%;
+            }
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .export-button, .import-button, .new-button, .return-button {
+            display: inline-block;
+            width: 150px;
+            padding: 15px;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .export-button {
+            background-color: #007bff;
+        }
+        .export-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .import-button {
+            background-color: #17a2b8;
+        }
+        .import-button:hover {
+            background-color: #117a8b;
+            transform: scale(1.05);
+        }
+        .new-button {
+            background-color: #28a745;
+        }
+        .new-button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .return-button {
+            background-color: #dc3545;
+        }
+        .return-button:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+        .edit-button, .delete-button {
+            background-color: #28a745;
+            border: none;
+            padding: 5px 10px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .delete-button {
+            background-color: #dc3545;
+        }
+        .edit-button:hover {
+            background-color: #218838;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        #fileInput {
+            display: none;
+        }
+        @keyframes fadeInUp {
+        from {
+        opacity: 0;
+        transform: translateY(20px);
+        }
+        to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+        }
+
+        h1 {
+        text-align: center;
+        color: #fff;
+        font-size: 2em;
+        margin-bottom: 20px;
+        animation: fadeInUp 1s ease-out; /* Aplica a animação */
+}
+    </style>
+</head>
+<body>
+    <img src="X:/Pedro/Trabalho BRAFT/logo.png" alt="Logotipo" class="logo-background">
+    <div class="box">
+        <h1>Usuários Cadastrados</h1>
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Senha</th>
+                    <th>Confirmação de Senha</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Os dados dos usuários serão adicionados aqui -->
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button class="export-button" onclick="exportToXLSX()">Gerar Excel</button>
+            <button class="import-button" onclick="document.getElementById('fileInput').click()">Importar Excel</button>
+            <button class="new-button" onclick="window.location.href='formulario_usuario.html'">Novo Cadastro</button>
+            <button class="return-button" onclick="window.location.href='pagina_restrita.html'">Retornar</button>
+            <input type="file" id="fileInput" accept=".xlsx, .xls" onchange="importFromXLSX(event)">
+        </div>
+    </div>
+
+    <!-- Inclua a biblioteca XLSX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userTableBody = document.getElementById('userTable').getElementsByTagName('tbody')[0];
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            function loadUsers() {
+                userTableBody.innerHTML = ''; // Limpa a tabela existente
+                users.forEach((user, index) => {
+                    const row = userTableBody.insertRow();
+                    for (const key in user) {
+                        const cell = row.insertCell();
+                        cell.textContent = user[key];
+                    }
+                    const actionCell = row.insertCell();
+                    actionCell.innerHTML = `
+                        <div class="action-buttons">
+                            <button class="edit-button" onclick="editUser(${index})">Editar</button>
+                            <button class="delete-button" onclick="deleteUser(${index})">Deletar</button>
+                        </div>
+                    `;
+                });
+            }
+
+            loadUsers();
+
+            window.editUser = function(index) {
+            console.log('Editando usuário com índice:', index); // Adicionado para depuração
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users[index];
+            if (user) {
+            localStorage.setItem('userToEdit', JSON.stringify(user));
+            localStorage.setItem('editIndex', index);
+            window.location.href = 'formulario_usuario.html'; // Certifique-se de que este caminho está correto
+    } else {
+        console.error('Usuário não encontrado para edição');
+    }
+};
+
+            window.deleteUser = function(index) {
+                if (confirm('Tem certeza que deseja deletar este usuário?')) {
+                    users.splice(index, 1);
+                    localStorage.setItem('users', JSON.stringify(users));
+                    loadUsers();
+                }
+            };
+        });
+
+        function exportToXLSX() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const ws = XLSX.utils.json_to_sheet(users);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Usuários');
+            XLSX.writeFile(wb, 'usuarios.xlsx');
+        }
+
+        function importFromXLSX(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const users = XLSX.utils.sheet_to_json(worksheet);
+
+                // Armazena os dados no localStorage e atualiza a tabela
+                localStorage.setItem('users', JSON.stringify(users));
+                location.reload(); // Recarrega a página para exibir os dados importados
+            };
+            reader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+</html>
